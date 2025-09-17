@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="POET.ManagementDashboardPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Run Text="Welcome back, "/>
+            <Run x:Name="txtUsername" FontWeight="Bold"/>
+        </TextBlock>
+    </Grid>
+</UserControl>

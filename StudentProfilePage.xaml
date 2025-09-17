@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="POET.StudentProfilePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Loaded="UserControl_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" 
+                Style="{StaticResource BackButton}"
+                Click="BtnBack_Click"
+                Width="50"
+                Height="30"
+                ToolTip="Back to Home"
+                HorizontalAlignment="Right"/>
+
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+            <!-- Main container grid -->
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Username -->
+                <TextBlock Text="Username:" 
+                     Grid.Row="0" Grid.Column="0"
+                     FontSize="18" FontWeight="Bold"
+                     Margin="10" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Username}" 
+                     Grid.Row="0" Grid.Column="1"
+                     FontSize="18" Margin="10"
+                     VerticalAlignment="Center"/>
+
+                <!-- Name -->
+                <TextBlock Text="Full Name:" 
+                     Grid.Row="1" Grid.Column="0"
+                     FontSize="18" FontWeight="Bold"
+                     Margin="10" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtName" 
+                   Grid.Row="1" Grid.Column="1"
+                   Text="{Binding Profile.Name}"
+                   FontSize="18" Margin="10"
+                   Padding="8" VerticalContentAlignment="Center"/>
+
+                <!-- Email -->
+                <TextBlock Text="Email:" 
+                     Grid.Row="2" Grid.Column="0"
+                     FontSize="18" FontWeight="Bold"
+                     Margin="10" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtEmail" 
+                   Grid.Row="2" Grid.Column="1"
+                   Text="{Binding Profile.Email}"
+                   FontSize="18" Margin="10"
+                   Padding="8" VerticalContentAlignment="Center"/>
+
+                <!-- Phone -->
+                <TextBlock Text="Phone:" 
+                     Grid.Row="3" Grid.Column="0"
+                     FontSize="18" FontWeight="Bold"
+                     Margin="10" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtPhone" 
+                   Grid.Row="3" Grid.Column="1"
+                   Text="{Binding Profile.PhoneNumber}"
+                   FontSize="18" Margin="10"
+                   Padding="8" VerticalContentAlignment="Center"/>
+
+                <!-- Update Button -->
+                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnUpdate" 
+            Content="Update Profile"
+            Style="{StaticResource NavButton}"
+            FontSize="18" FontWeight="Bold"
+            Padding="20,10" Margin="10"
+            Background="DodgerBlue" Foreground="White"
+            Click="BtnUpdate_Click"/>
+
+                    <Button x:Name="btnViewHistory" 
+            Content="View Test History"
+            Style="{StaticResource NavButton}"
+            FontSize="18" FontWeight="Bold"
+            Padding="20,10" Margin="10"
+            Background="DodgerBlue" Foreground="White"
+            Click="BtnViewHistory_Click"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="POET.YourClassPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:System.Windows.Controls;assembly=PresentationFramework">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <!-- Dòng thông báo nếu chưa có lớp -->
+            <TextBlock Text="Not enrolled in any class"
+           FontSize="20"
+           FontWeight="Bold"
+           Foreground="Gray"
+           HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasClass}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <!-- Phần hiển thị khi đã có lớp -->
+            <StackPanel Visibility="{Binding HasClass, Converter={StaticResource BoolToVis}}"
+                        HorizontalAlignment="Center">
+
+                <TextBlock Text="{Binding FormattedClass}" 
+                           FontSize="20" Margin="0,0,0,10"/>
+
+                <TextBlock Text="{Binding FormattedTeacher}" 
+                           FontSize="20" Margin="0,0,0,30"/>
+
+                <Button x:Name="btnMaterial" Content="View Material"
+                        Click="BtnMaterial_Click"
+                        Background="#2196F3" Foreground="White"
+                        FontSize="19"
+                        Width="150" Height="55"
+                        Margin="10"/>
+
+                <Button Content="Leave Class"
+                        Click="LeaveClass_Click"
+                        Style="{StaticResource DangerButton}"
+                        Width="150"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

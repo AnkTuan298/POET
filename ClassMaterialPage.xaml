@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="POET.ClassMaterialPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Danh sách tài liệu -->
+        <DataGrid x:Name="materialGrid"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  Grid.Row="0"
+                  Margin="0,0,0,10"
+                  FontSize="14">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Material Name" Binding="{Binding Name}" Width="2*" />
+                <DataGridTemplateColumn Header="Link" Width="3*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Url}" Foreground="Blue" TextDecorations="Underline" Cursor="Hand"
+                                       MouseLeftButtonUp="MaterialLink_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Nút Back -->
+        <Button x:Name="btnBack" Content="Back"
+                Grid.Row="1"
+                Width="100" Height="30"
+                HorizontalAlignment="Left"
+                Click="BtnBack_Click"
+                Background="DodgerBlue" Foreground="White"/>
+    </Grid>
+</UserControl>

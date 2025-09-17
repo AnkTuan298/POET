@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="POET.UserManagementPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="700">
+    <Grid Margin="20">
+        <DataGrid x:Name="usersGrid" 
+                AutoGenerateColumns="False"
+                ItemsSource="{Binding}"
+                IsReadOnly="True"
+                SelectionMode="Single">
+            <DataGrid.Columns>
+                <!-- Username Column -->
+                <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="150" FontSize="15"/>
+
+                <!-- Role Column -->
+                <DataGridTextColumn Header="Current Role" Binding="{Binding Role}" Width="150" FontSize="15"/>
+
+                <!-- Actions Column -->
+                <DataGridTemplateColumn Header="Actions" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!-- Upgrade Button -->
+                                <Button Content="Upgrade Role" 
+                                      Style="{StaticResource NavButton}"
+                                      Click="UpgradeRole_Click"
+                                      Tag="{Binding UserId}"
+                                      Margin="5"
+                                      Background="#FF28A745"/>
+
+                                <!-- Delete Button -->
+                                <Button Content="Delete User" 
+                                      Style="{StaticResource NavButton}"
+                                      Click="DeleteUser_Click"
+                                      Tag="{Binding UserId}"
+                                      Margin="5"
+                                      Background="#FFDC3545"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

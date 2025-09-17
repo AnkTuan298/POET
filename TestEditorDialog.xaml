@@ -1,0 +1,39 @@
+﻿<Window x:Class="POET.TestEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create New Test" 
+        Width="400" 
+        Height="260"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        WindowStyle="None">
+
+    <Grid Margin="15">
+        <StackPanel>
+            <!-- Test Name -->
+            <TextBlock Text="Test Name:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtTestName" Margin="0,0,0,15"/>
+
+            <!-- Class Selection (Admins Only) -->
+            <TextBlock x:Name="txtClassLabel" 
+                     Text="Select Class:" 
+                     FontWeight="Bold" 
+                     Margin="0,0,0,5"
+                     Visibility="Collapsed"/>
+            <ComboBox x:Name="cmbClasses" 
+                    DisplayMemberPath="ClassName"
+                    Visibility="Collapsed"
+                    Margin="0,0,0,15"/>
+
+            <!-- Level Selection -->
+            <TextBlock Text="Select Level:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ComboBox x:Name="cmbLevels" DisplayMemberPath="LevelName"/>
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,35,0,0">
+                <Button Content="Cancel" Width="80" Click="Cancel_Click"/>
+                <Button Content="Create" Width="80" Margin="10,0,0,0" Click="Create_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

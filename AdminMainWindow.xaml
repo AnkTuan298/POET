@@ -1,0 +1,120 @@
+﻿<Window x:Class="POET.AdminMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="POET - Admin Dashboard" 
+        Width="1200" Height="700"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Border Background="White" CornerRadius="0" BorderThickness="1" BorderBrush="#FFE0E0E0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Navigation Panel -->
+            <Border Grid.Column="0" Background="#FFF5F5F5" CornerRadius="0">
+                <StackPanel>
+                    <!-- Header -->
+                    <TextBlock Text="Admin Panel" 
+                             FontSize="22" FontWeight="Bold"
+                             Margin="20,30,20,20"                            
+                             HorizontalAlignment="Left"/>
+
+                    <!-- Main Navigation -->
+                    <Button x:Name="btnManagement" 
+                          Content="Management"
+                          Style="{StaticResource NavButton}"
+                          Click="Management_Click"/>
+
+                    <!-- Sub Menu (Initially Collapsed) -->
+                    <StackPanel x:Name="subMenuPanel" Visibility="Collapsed">
+                        <Button x:Name="btnUsers" 
+                              Content="Users"
+                              Style="{StaticResource NavButton}"
+                              Click="SubMenu_Click"/>
+                        <Button x:Name="btnClasses" 
+                              Content="Classes"
+                              Style="{StaticResource NavButton}"
+                              Click="SubMenu_Click"/>
+                        <Button x:Name="btnTests" 
+                              Content="Tests"
+                              Style="{StaticResource NavButton}"
+                              Click="SubMenu_Click"/>
+                    </StackPanel>
+
+                    <!-- Logout -->
+                    <Button x:Name="btnLogout" 
+                          Content="Logout"
+                          Style="{StaticResource NavButton}"
+                          Click="BtnLogout_Click"
+                          Margin="0,20,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Part 2: Content Area -->
+            <Grid Grid.Column="1">
+                <Image Source="D:\Malice Binah\.1\PRN212\Prject\POET\Mics\Background2.jpg"
+                Stretch="UniformToFill">
+                </Image>
+
+                <Border Margin="65,40"
+                BorderBrush="Black"
+                BorderThickness="2"
+                CornerRadius="10"
+                Background="Transparent"
+                ClipToBounds="True">
+
+                    <Grid>
+                        <Rectangle RadiusX="10" RadiusY="10">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="White" Opacity="0.96"/>
+                            </Rectangle.Fill>
+                            <Rectangle.Effect>
+                                <BlurEffect Radius="2"/>
+                            </Rectangle.Effect>
+                        </Rectangle>
+
+                        <Frame x:Name="contentFrame" 
+                        Grid.Column="1"
+                        NavigationUIVisibility="Hidden"
+                        Background="Transparent">
+                        </Frame>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" 
+          HorizontalAlignment="Right" 
+          VerticalAlignment="Top"
+          Margin="0,33,15,0"
+          Panel.ZIndex="2">
+
+                <!-- Minimize Button -->
+                <Button x:Name="btnMinimize" 
+          Style="{StaticResource WindowControlButton}"
+          Click="BtnMinimize_Click"
+          ToolTip="Minimize">
+                    <TextBlock Text="─" 
+                 FontSize="14"
+                 FontWeight="Bold"
+                 Foreground="#FF444444"/>
+                </Button>
+
+                <!-- Close Button -->
+                <Button x:Name="btnClose" 
+          Style="{StaticResource WindowControlButton}"
+          Click="BtnClose_Click"
+          Margin="10,0,0,0"
+          ToolTip="Close">
+                    <TextBlock Text="✕" 
+                 FontSize="14"
+                 Foreground="#FF444444"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

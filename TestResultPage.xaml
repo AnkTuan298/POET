@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="POET.TestResultPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:POET"
+             Width="800" Height="600">
+    <UserControl.Resources>
+        <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <local:NotAnsweredConverter x:Key="NotAnsweredConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Results Summary -->
+        <Border Grid.Row="0" Background="#2196F3" Padding="20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Margin="0,0,30,0">
+                    <TextBlock Text="Score" Foreground="White" FontSize="18"/>
+                    <TextBlock Text="{Binding Score}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,30,0">
+                    <TextBlock Text="Correct Answers" Foreground="White" FontSize="18"/>
+                    <TextBlock Text="{Binding CorrectCount}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Time Remaining" Foreground="White" FontSize="18"/>
+                    <TextBlock Text="{Binding TimeRemaining}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Question Review -->
+        <ScrollViewer Grid.Row="1" Padding="20">
+            <ItemsControl ItemsSource="{Binding QuestionResults}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0,0,0,15" Padding="15" 
+                                Background="White" CornerRadius="5"
+                                BorderBrush="#EEEEEE" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{Binding QuestionText}" 
+                                         FontSize="16" FontWeight="SemiBold"
+                                         TextWrapping="Wrap"/>
+
+                                <StackPanel Margin="10,5">
+                                    <TextBlock Text="Your Answer:" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding UserAnswer}" 
+                                             Foreground="{Binding IsCorrect, Converter={StaticResource BoolToColorConverter}}"
+                                             FontStyle="{Binding UserAnswer, Converter={StaticResource NotAnsweredConverter}}"
+                                             TextWrapping="Wrap"/>
+
+                                    <TextBlock Text="Correct Answer:" FontWeight="SemiBold" Margin="0,5,0,0"/>
+                                    <TextBlock Text="{Binding CorrectAnswer}" Foreground="Green"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Navigation -->
+        <Button Grid.Row="2" Content="Back to Tests" 
+                Click="BackToTests_Click"
+                Style="{StaticResource NavButton}"
+                Margin="20" Padding="30,10"
+                HorizontalAlignment="Center"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="POET.StudentListPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:POET"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <DataGrid x:Name="studentsGrid" 
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                SelectionMode="Single">
+            <DataGrid.Columns>
+                <!-- Student Name -->
+                <DataGridTextColumn Header="Student Name" 
+                                  Binding="{Binding Profile.Name}" 
+                                  Width="*"/>
+
+                <!-- Username -->
+                <DataGridTextColumn Header="Username" 
+                                  Binding="{Binding Username}" 
+                                  Width="*"/>
+
+                <!-- Email -->
+                <DataGridTextColumn Header="Email" 
+                                  Binding="{Binding Profile.Email}" 
+                                  Width="*"/>
+
+                <!-- Actions -->
+                <DataGridTemplateColumn Header="Actions" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!-- View History Button -->
+                                <Button Content="View History" 
+                                      Style="{StaticResource NavButton}"
+                                      Click="ViewHistory_Click"
+                                      Tag="{Binding UserId}"
+                                      Margin="5"
+                                      Background="#FF2196F3"/>
+
+                                <!-- Delete Button -->
+                                <Button Content="Remove" 
+                                      Style="{StaticResource DangerButton}"
+                                      Click="DeleteStudent_Click"
+                                      Tag="{Binding UserId}"
+                                      Margin="5"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" Margin="10">
+            <Button x:Name="btnAddMaterial" Content="Class Material" Margin="5" Click="BtnYourMaterial_Click"
+                    FontSize="18" FontWeight="Bold"
+                    Padding="20,10"
+                    Background="DodgerBlue" Foreground="White"/>
+            <Button x:Name="btnViewProgress" Content="View Student Progress" Margin="5" Click="BtnViewProgress_Click"
+                    FontSize="18" FontWeight="Bold"
+                    Padding="20,10"
+                    Background="DodgerBlue" Foreground="White"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

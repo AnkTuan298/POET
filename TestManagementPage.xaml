@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="POET.TestManagementPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:POET"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <!-- No Class Warning (Teachers Only) -->
+        <TextBlock x:Name="txtNoClassWarning"
+                 Text="You currently don't have a class. Please create a class first!"
+                 FontSize="18" Foreground="Red"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Visibility="Collapsed"/>
+
+        <!-- Test Management Panel -->
+        <StackPanel x:Name="testManagementPanel" Visibility="Collapsed">
+            <Button Content="Create New Test" 
+                  Click="CreateTest_Click"
+                  Style="{StaticResource PrimaryButton}"
+                  Margin="0,0,0,20"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="600">
+                <DataGrid x:Name="testsGrid" 
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <!-- Test Name -->
+                        <DataGridTextColumn Header="Test Name" 
+                                            FontSize="15"
+                                      Binding="{Binding TestName}" 
+                                      Width="*"/>
+
+                        <!-- Class (Admins Only) -->
+                        <DataGridTextColumn Header="Class" 
+                                            FontSize="15"
+                                      Binding="{Binding Class.ClassName}" 
+                                      Width="*"
+                                      Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+                        <!-- Level -->
+                        <DataGridTextColumn Header="Level" 
+                                            FontSize="15"
+                                      Binding="{Binding Level.LevelName}" 
+                                      Width="*"/>
+
+                        <!-- Questions -->
+                        <DataGridTextColumn Header="Questions" 
+                                            FontSize="15"
+                                      Binding="{Binding Questions.Count}" 
+                                      Width="*"/>
+
+                        <!-- Edit Questions -->
+                        <DataGridTemplateColumn Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Edit Questions" 
+                                      Click="EditQuestions_Click"
+                                      Tag="{Binding TestId}"
+                                      Margin="5"
+                                      Style="{StaticResource NavButton}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Delete Test -->
+                        <DataGridTemplateColumn Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" 
+                                      Click="DeleteTest_Click"
+                                      Tag="{Binding TestId}"
+                                      Margin="5"
+                                      Style="{StaticResource DangerButton}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+    </UserControl>
