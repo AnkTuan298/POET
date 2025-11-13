@@ -46,7 +46,7 @@ namespace POETWeb.Controllers
 
             if (classId.HasValue) q = q.Where(a => a.ClassId == classId.Value);
 
-            var now = DateTimeOffset.UtcNow;
+            var now = DateTimeOffset.UtcNow; 
 
             var usedByAss = await _db.AssignmentAttempts
                 .Where(x => x.UserId == me.Id)
@@ -93,7 +93,7 @@ namespace POETWeb.Controllers
 
             return View(vm);
         }
-        //Test Details After
+        //Test Details After 
         [Authorize(Roles = "Student")]
         [HttpGet]
         public async Task<IActionResult> Review(int attemptId, string? returnUrl = null)
