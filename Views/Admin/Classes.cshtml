@@ -67,6 +67,34 @@
                 }
             </tbody>
         </table>
+        @{
+            int page = ViewBag.Page;
+            int pageSize = ViewBag.PageSize;
+            int totalPages = (int)Math.Ceiling((double)total / pageSize);
+        }
+
+        @if (totalPages > 1)
+        {
+            <nav class="mt-3">
+                <ul class="pagination">
+                    <li class="page-item @(page == 1 ? "disabled" : "")">
+                        <a class="page-link" href="?page=@(page - 1)&q=@q">Previous</a>
+                    </li>
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == page ? "active" : "")">
+                            <a class="page-link" href="?page=@i&q=@q">@i</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(page == totalPages ? "disabled" : "")">
+                        <a class="page-link" href="?page=@(page + 1)&q=@q">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        }
+
     </div>
 </div>
 
