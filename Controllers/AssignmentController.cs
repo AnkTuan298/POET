@@ -732,7 +732,7 @@ namespace POETWeb.Controllers
                         .ThenInclude(q => q.Choices)
                 .Include(t => t.Answers)
                 .Where(t => t.AssignmentId == id && t.UserId == me!.Id)
-                .OrderByDescending(t => t.SubmittedAt ?? t.StartedAt)
+                .OrderByDescending(t => t.SubmittedAt ?? t.StartedAt)//Hiển thị giảm dần 
                 .ToListAsync();
 
             var list = new System.Collections.Generic.List<TestAttemptListItemVM>();

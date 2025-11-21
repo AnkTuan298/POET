@@ -45,7 +45,7 @@ namespace POETWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Users(string? q = null, int page = 1, int pageSize = 20)
+        public async Task<IActionResult> Users(string? q = null, int page = 1, int pageSize = 5)
         {
             q = (q ?? "").Trim().ToLowerInvariant();
 
@@ -169,7 +169,7 @@ namespace POETWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Classes(string? q = null, int page = 1, int pageSize = 20)
+        public async Task<IActionResult> Classes(string? q = null, int page = 1, int pageSize = 5)
         {
             q = (q ?? "").Trim().ToLowerInvariant();
 
