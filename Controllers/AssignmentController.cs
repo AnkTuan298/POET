@@ -263,6 +263,24 @@ namespace POETWeb.Controllers
                 return View(vm);
             }
 
+            // ======= ADDED: VALIDATE DUPLICATE CHOICES =======
+            foreach (var q in vm.Questions)
+            {
+                if (q.Type == QuestionType.Mcq && q.Choices != null)
+                {
+                    var texts = q.Choices
+                        .Where(c => !string.IsNullOrWhiteSpace(c.Text))
+                        .Select(c => c.Text.Trim().ToLowerInvariant())
+                        .ToList();
+
+                    if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
+                    {
+                        ModelState.AddModelError("", $"Các đáp án trong câu hỏi '{q.Prompt}' bị trùng nhau.");
+                    }
+                }
+            }
+            // =================================================
+
             ValidateAssignment(vm);
             if (!ModelState.IsValid) return View(vm);
 
@@ -296,7 +314,7 @@ namespace POETWeb.Controllers
                     Assignment = assignment,
                     Type = q.Type,
                     Prompt = q.Prompt,
-                    Points = q.Points, // decimal
+                    Points = q.Points,
                     Order = order++
                 };
 
@@ -325,6 +343,7 @@ namespace POETWeb.Controllers
 
             return RedirectToAction(nameof(Teacher), new { classId = assignment.ClassId });
         }
+
 
         //==== EDIT ====
 
@@ -386,6 +405,24 @@ namespace POETWeb.Controllers
                 ViewBag.EditId = id;
                 return View("Create", vm);
             }
+            // ======= THÊM: VALIDATE DUPLICATE CHOICES =======
+            foreach (var q in vm.Questions)
+            {
+                if (q.Type == QuestionType.Mcq && q.Choices != null)
+                {
+                    var texts = q.Choices
+                        .Where(c => !string.IsNullOrWhiteSpace(c.Text))
+                        .Select(c => c.Text.Trim().ToLowerInvariant())
+                        .ToList();
+
+                    if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
+                    {
+                        ModelState.AddModelError("", $"Các đáp án trong câu hỏi '{q.Prompt}' bị trùng nhau.");
+                    }
+                }
+            }
+            // =================================================
+
 
             ValidateAssignment(vm);
             if (!ModelState.IsValid) { ViewBag.EditId = id; return View("Create", vm); }
