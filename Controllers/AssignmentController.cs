@@ -396,7 +396,7 @@ namespace POETWeb.Controllers
                     })
                     .ToList()
             };
-
+            vm.TotalPointsMax = (int)Math.Round(a.Questions.Sum(q => q.Points));
             ViewBag.EditId = id;
             return View("Create", vm);
         }

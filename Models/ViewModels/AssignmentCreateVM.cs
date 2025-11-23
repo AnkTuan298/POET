@@ -35,7 +35,9 @@ namespace POETWeb.Models.ViewModels
         public int? ChoiceIndex { get; set; }
         public IFormFile? ImportFile { get; set; }
         public string? ImportErrors { get; set; }
-        public int TotalPointsMax { get; set; } = 100;
+
+        [Range(typeof(decimal), "1", "100", ErrorMessage = "Total points (max) must be between 1 and 100.")]
+        public decimal TotalPointsMax { get; set; } = 100m;
 
     }
 
