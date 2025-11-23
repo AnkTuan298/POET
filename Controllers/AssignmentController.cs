@@ -279,7 +279,7 @@ namespace POETWeb.Controllers
                     {
                         if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
                         {
-                            ModelState.AddModelError("", $"Câu hỏi số {qIndex} có các đáp án bị trùng nhau.");
+                            ModelState.AddModelError("", $"Question number {qIndex} has duplicate answers.");
                         }
                     }
                 }
@@ -431,7 +431,7 @@ namespace POETWeb.Controllers
                     {
                         if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
                         {
-                            ModelState.AddModelError("", $"Câu hỏi số {qIndex} có các đáp án bị trùng nhau.");
+                            ModelState.AddModelError("", $"Question number {qIndex} has duplicate answers.");
                         }
                     }
                 }
