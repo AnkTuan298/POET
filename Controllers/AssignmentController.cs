@@ -263,7 +263,8 @@ namespace POETWeb.Controllers
                 return View(vm);
             }
 
-            // ======= ADDED: VALIDATE DUPLICATE CHOICES =======
+            // ======= FIX: VALIDATE DUPLICATE CHOICES =======
+            int qIndex = 1;
             foreach (var q in vm.Questions)
             {
                 if (q.Type == QuestionType.Mcq && q.Choices != null)
@@ -273,13 +274,21 @@ namespace POETWeb.Controllers
                         .Select(c => c.Text.Trim().ToLowerInvariant())
                         .ToList();
 
-                    if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
+                    
+                    if (texts.Count >= 2)
                     {
-                        ModelState.AddModelError("", $"Các đáp án trong câu hỏi '{q.Prompt}' bị trùng nhau.");
+                        if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
+                        {
+                            ModelState.AddModelError("", $"Câu hỏi số {qIndex} có các đáp án bị trùng nhau.");
+                        }
                     }
                 }
+
+                qIndex++;
             }
-            // =================================================
+            // ===============================================
+
+
 
             ValidateAssignment(vm);
             if (!ModelState.IsValid) return View(vm);
@@ -405,23 +414,32 @@ namespace POETWeb.Controllers
                 ViewBag.EditId = id;
                 return View("Create", vm);
             }
-            // ======= THÊM: VALIDATE DUPLICATE CHOICES =======
+            // ======= FIX: VALIDATE DUPLICATE CHOICES (EDIT) =======
+            int qIndex = 1;
             foreach (var q in vm.Questions)
             {
                 if (q.Type == QuestionType.Mcq && q.Choices != null)
                 {
+                    
                     var texts = q.Choices
                         .Where(c => !string.IsNullOrWhiteSpace(c.Text))
                         .Select(c => c.Text.Trim().ToLowerInvariant())
                         .ToList();
 
-                    if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
+                    
+                    if (texts.Count >= 2)
                     {
-                        ModelState.AddModelError("", $"Các đáp án trong câu hỏi '{q.Prompt}' bị trùng nhau.");
+                        if (texts.GroupBy(t => t).Any(g => g.Count() > 1))
+                        {
+                            ModelState.AddModelError("", $"Câu hỏi số {qIndex} có các đáp án bị trùng nhau.");
+                        }
                     }
                 }
+
+                qIndex++;
             }
-            // =================================================
+            // ========================================================
+
 
 
             ValidateAssignment(vm);
