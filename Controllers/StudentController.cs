@@ -253,6 +253,16 @@ namespace POETWeb.Controllers
             if (cls == null)
                 return NotFound(new { ok = false, message = "Class not found." });
 
+            if (cls.MaxStudents.HasValue)
+            {
+                var current = await _db.Enrollments
+                    .AsNoTracking()
+                    .CountAsync(e => e.ClassId == cls.Id && e.RoleInClass == "Student");
+
+                if (current >= cls.MaxStudents.Value)
+                    return StatusCode(409, new { ok = false, code = "CLASS_FULL", message = "This class has reached its maximum capacity." });
+            }
+
             var exists = await _db.Enrollments
                 .AnyAsync(e => e.ClassId == cls.Id && e.UserId == me.Id);
 

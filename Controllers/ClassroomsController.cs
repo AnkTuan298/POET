@@ -298,7 +298,10 @@ namespace POETWeb.Controllers
 
             if (cls.MaxStudents.HasValue)
             {
-                var current = await _db.Enrollments.CountAsync(e => e.ClassId == cls.Id && e.RoleInClass == "Student");
+                var current = await _db.Enrollments
+                    .AsNoTracking()
+                    .CountAsync(e => e.ClassId == cls.Id && e.RoleInClass == "Student");
+
                 if (current >= cls.MaxStudents.Value)
                 {
                     ModelState.AddModelError(string.Empty, "This class has reached its maximum capacity.");
